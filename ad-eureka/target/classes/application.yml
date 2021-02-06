@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: ad-eureka
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 由于当前eureka-server为单机版，不需要从其他eureka-server同步信息
+    fetch-registry: false
+    # 不需要将自己注册到eureka-server
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+
+# eureka-server集群配置
+#spring:
+#  application:
+#    name: ad-eureka
+#  profiles: server1
+#
+#server:
+#  port: 8761
+#eureka:
+#  instance:
+#    hostname: server1
+#    ## 不使用ip地址注册，由于本机的ip地址都是一样的，会报错，通过hosts配置本地域名注册
+#    prefer-ip-address: false
+#  client:
+#    service-url:
+#      defaultZone:  http://server2:8762/eureka/,http://server3:8763/eureka/
