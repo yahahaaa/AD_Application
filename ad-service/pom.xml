@@ -15,5 +15,6 @@
 
     <modules>
         <module>ad-service-common</module>
+        <module>ad-service-sponsor</module>
     </modules>
 </project>
