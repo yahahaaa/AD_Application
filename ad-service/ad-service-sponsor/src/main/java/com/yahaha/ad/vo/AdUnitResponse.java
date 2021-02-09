@@ -1,0 +1,18 @@
+package com.yahaha.ad.vo;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+/**
+ * @Auther LeeMZ
+ * @Date 2021/2/7
+ **/
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class AdUnitResponse {
+
+    private Long id;
+    private String unitName;
+}

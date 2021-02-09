@@ -18,6 +18,7 @@ public class GlobalExceptionAdvice {
     @ExceptionHandler(value = AdException.class)
     public CommonResponse<String> handlerAdException(HttpServletRequest request,
                                                      AdException ex){
+        //负数 数字标识 表示为异常信息
         CommonResponse<String> response = new CommonResponse<>(-1,"business error");
         response.setData(ex.getMessage());
         return response;
