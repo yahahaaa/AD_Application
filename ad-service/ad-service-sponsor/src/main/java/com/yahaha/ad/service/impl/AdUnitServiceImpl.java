@@ -4,19 +4,23 @@ import com.netflix.discovery.converters.Auto;
 import com.yahaha.ad.constant.Constants;
 import com.yahaha.ad.dao.AdPlanRepository;
 import com.yahaha.ad.dao.AdUnitRepository;
+import com.yahaha.ad.dao.CreativeRepository;
 import com.yahaha.ad.dao.unit_condition.AdUnitDistrictRepository;
 import com.yahaha.ad.dao.unit_condition.AdUnitItRepository;
 import com.yahaha.ad.dao.unit_condition.AdUnitKeywordRepository;
+import com.yahaha.ad.dao.unit_condition.CreativeUnitRepository;
 import com.yahaha.ad.entity.AdPlan;
 import com.yahaha.ad.entity.AdUnit;
 import com.yahaha.ad.entity.unit_condition.AdUnitDistrict;
 import com.yahaha.ad.entity.unit_condition.AdUnitIt;
 import com.yahaha.ad.entity.unit_condition.AdUnitKeyword;
+import com.yahaha.ad.entity.unit_condition.CreativeUnit;
 import com.yahaha.ad.exception.AdException;
 import com.yahaha.ad.service.IAdUnitService;
 import com.yahaha.ad.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -49,7 +53,14 @@ public class AdUnitServiceImpl implements IAdUnitService {
     @Autowired
     private AdUnitDistrictRepository unitDistrictRepository;
 
+    @Autowired
+    private CreativeRepository creativeRepository;
+
+    @Autowired
+    private CreativeUnitRepository creativeUnitRepository;
+
     @Override
+    @Transactional
     public AdUnitResponse createUnit(AdUnitRequest request) throws AdException {
 
         //参数校验
@@ -73,6 +84,7 @@ public class AdUnitServiceImpl implements IAdUnitService {
     }
 
     @Override
+    @Transactional
     public AdUnitKeywordResponse createUnitKeyword(AdUnitKeywordRequest request) throws AdException {
 
         //检测reqeust中的uninid是否存在
@@ -92,6 +104,7 @@ public class AdUnitServiceImpl implements IAdUnitService {
     }
 
     @Override
+    @Transactional
     public AdUnitItResponse createUnitIt(AdUnitItRequest request) throws AdException {
 
         //检测request中的unitid是否存在
@@ -109,6 +122,7 @@ public class AdUnitServiceImpl implements IAdUnitService {
     }
 
     @Override
+    @Transactional
     public AdUnitDistrictResponse createUnitDistrict(AdUnitDistrictRequest request) throws AdException {
 
         //检测request中的unitid是否存在
@@ -126,6 +140,26 @@ public class AdUnitServiceImpl implements IAdUnitService {
 
     }
 
+    @Override
+    @Transactional
+    public CreativeUnitResponse createCreativeUnit(CreativeUnitRequest request) throws AdException {
+
+        //需要验证关联的创意和推广单元是否都存在
+        //首先需要获取两个ids
+        List<Long> unit_ids = request.getCreativeUnitItemList().stream().map(CreativeUnitRequest.CreativeUnitItem::getUnitId).collect(Collectors.toList());
+        List<Long> creative_ids = request.getCreativeUnitItemList().stream().map(CreativeUnitRequest.CreativeUnitItem::getCreativeId).collect(Collectors.toList());
+        if (!(isRelatedUnitExist(unit_ids) && isRelatedCreativeExist(creative_ids))){
+            throw new AdException(Constants.ErrorMsg.REQUEST_PARAM_ERROR);
+        }
+
+        List<CreativeUnit> creativeUnits = new ArrayList<>();
+        request.getCreativeUnitItemList().stream().map(e->creativeUnits.add(new CreativeUnit(e.getCreativeId(),e.getUnitId())));
+        creativeUnitRepository.saveAll(creativeUnits).stream().map(CreativeUnit::getId).collect(Collectors.toList());
+
+
+        return null;
+    }
+
     //根据unitId对应的所有推广单元是否存在
     private boolean isRelatedUnitExist(List<Long> unitIds){
 
@@ -133,5 +167,13 @@ public class AdUnitServiceImpl implements IAdUnitService {
             return false;
 
         return unitRepository.findAllById(unitIds).size() == new HashSet<>(unitIds).size();//由于unitIds可能有重复的id，所有用set去重
+    }
+
+    private boolean isRelatedCreativeExist(List<Long> creativeIds){
+
+        if (CollectionUtils.isEmpty(creativeIds))
+            return false;
+
+        return creativeRepository.findAllById(creativeIds).size() == new HashSet<>(creativeIds).size();
     }
 }
