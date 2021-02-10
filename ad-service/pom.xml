@@ -16,5 +16,6 @@
     <modules>
         <module>ad-service-common</module>
         <module>ad-service-sponsor</module>
+        <module>ad-service-search</module>
     </modules>
 </project>

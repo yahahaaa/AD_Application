@@ -137,7 +137,6 @@ public class AdUnitServiceImpl implements IAdUnitService {
             ids = unitDistrictRepository.saveAll(unitDistricts).stream().map(AdUnitDistrict::getId).collect(Collectors.toList());//调用Dao层保存至数据库
         }
         return new AdUnitDistrictResponse(ids);
-
     }
 
     @Override
@@ -154,10 +153,9 @@ public class AdUnitServiceImpl implements IAdUnitService {
 
         List<CreativeUnit> creativeUnits = new ArrayList<>();
         request.getCreativeUnitItemList().stream().map(e->creativeUnits.add(new CreativeUnit(e.getCreativeId(),e.getUnitId())));
-        creativeUnitRepository.saveAll(creativeUnits).stream().map(CreativeUnit::getId).collect(Collectors.toList());
+        List<Long> ids = creativeUnitRepository.saveAll(creativeUnits).stream().map(CreativeUnit::getId).collect(Collectors.toList());
 
-
-        return null;
+        return new CreativeUnitResponse(ids);
     }
 
     //根据unitId对应的所有推广单元是否存在

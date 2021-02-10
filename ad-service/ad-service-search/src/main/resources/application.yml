@@ -1,0 +1,47 @@
+server:
+  port: 7001
+  servlet:
+    context-path: /ad-search
+
+spring:
+  application:
+    name: eureka-client-ad-search
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none # 不允许更改表结构
+    properties:
+      hibernate.formate_sql: true # 增加 SQL 的可读性
+    open-in-view: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.103:3306/ad_data?serverTimezone=Asia/Shanghai&userUnicode=True&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+feign:
+  hystrix:
+    enabled: true
+## 设置feign的超时时间
+  client:
+    config:
+      default:
+        #建立连接所用的时间，适用于网络状况正常的情况下，两端连接所需要的时间
+        ConnectTimeOut: 5000
+        #指建立连接后从服务端读取到可用资源所用的时间
+        ReadTimeOut: 5000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
