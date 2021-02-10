@@ -9,3 +9,12 @@ eureka:
   client:
     service-url:
       dafaultZone: http://localhost:8761/eureka/
+
+zuul:
+  prefix: /yahaha
+  routes:
+    # 设置自定义名sponsor的微服务的转发条件
+    sponsor:
+      path: /ad-sponsor/**
+      serviceId: eureka-client-ad-sponsor
+      strip-prefix: false # 不过滤前缀，否则先指定微服务转发时，会将ad-sponsor过滤掉，会报错，由于对应的微服务配置信息上配置了前缀名

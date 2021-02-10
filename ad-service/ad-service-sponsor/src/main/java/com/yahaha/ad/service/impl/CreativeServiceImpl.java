@@ -6,11 +6,13 @@ import com.yahaha.ad.service.ICreativeService;
 import com.yahaha.ad.vo.CreativeRequest;
 import com.yahaha.ad.vo.CreativeResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * @Auther LeeMZ
  * @Date 2021/2/9
  **/
+@Service
 public class CreativeServiceImpl implements ICreativeService {
 
     @Autowired
