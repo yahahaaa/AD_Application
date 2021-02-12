@@ -1,7 +1,7 @@
 package com.yahaha.ad.client;
 
-import com.yahaha.ad.client.vo.AdPlan;
-import com.yahaha.ad.client.vo.AdPlanGetRequest;
+import com.yahaha.ad.vo.AdPlan;
+import com.yahaha.ad.vo.AdPlanGetRequest;
 import com.yahaha.ad.vo.CommonResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;

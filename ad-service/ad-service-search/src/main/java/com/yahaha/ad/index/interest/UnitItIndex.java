@@ -1,6 +1,6 @@
 package com.yahaha.ad.index.interest;
 
-import com.yahaha.ad.client.utils.CommonUtils;
+import com.yahaha.ad.utils.CommonUtils;
 import com.yahaha.ad.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;

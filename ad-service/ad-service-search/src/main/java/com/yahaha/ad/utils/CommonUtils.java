@@ -1,4 +1,4 @@
-package com.yahaha.ad.client.utils;
+package com.yahaha.ad.utils;
 
 import java.util.Map;
 import java.util.function.Supplier;

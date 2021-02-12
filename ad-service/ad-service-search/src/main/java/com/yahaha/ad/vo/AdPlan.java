@@ -1,4 +1,4 @@
-package com.yahaha.ad.client.vo;
+package com.yahaha.ad.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,0 +1,29 @@
+server:
+  port: 7000
+  servlet:
+    context-path: /ad-sponsor
+
+spring:
+  application:
+    name: eureka-client-ad-sponsor
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none # 不允许更改表结构
+    properties:
+      hibernate.formate_sql: true # 增加 SQL 的可读性
+    open-in-view: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.0.103:3306/ad_data?serverTimezone=Asia/Shanghai&userUnicode=True&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: 123456
+    tomcat:
+      max-active: 4
+      min-idle: 2
+      initial-size: 2
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

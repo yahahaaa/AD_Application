@@ -1,12 +1,10 @@
 package com.yahaha.ad.index.creativeunit;
 
-import com.yahaha.ad.client.utils.CommonUtils;
 import com.yahaha.ad.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

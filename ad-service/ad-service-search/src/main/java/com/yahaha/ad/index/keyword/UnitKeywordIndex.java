@@ -1,12 +1,11 @@
 package com.yahaha.ad.index.keyword;
 
-import com.yahaha.ad.client.utils.CommonUtils;
+import com.yahaha.ad.utils.CommonUtils;
 import com.yahaha.ad.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import sun.awt.windows.WPrinterJob;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

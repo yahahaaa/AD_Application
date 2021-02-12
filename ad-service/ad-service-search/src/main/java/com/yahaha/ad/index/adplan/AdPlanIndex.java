@@ -1,8 +1,6 @@
 package com.yahaha.ad.index.adplan;
 
-import com.yahaha.ad.client.vo.AdPlan;
 import com.yahaha.ad.index.IndexAware;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
