@@ -45,3 +45,12 @@ management:
     web:
       exposure:
         include: "*"
+
+adconf:
+  mysql:
+    host: 192.168.0.103
+    port: 3306
+    username: root
+    password: 123456
+    binlogName: ""
+    position: -1

@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Date 2021/2/12
  **/
 @Component
+@SuppressWarnings("all")
 public class DataTable implements ApplicationContextAware, PriorityOrdered {
 
     private static ApplicationContext applicationContext;

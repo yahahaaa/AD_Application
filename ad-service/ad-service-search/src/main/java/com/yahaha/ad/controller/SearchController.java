@@ -21,6 +21,7 @@ import java.util.List;
  **/
 @RestController
 @Slf4j
+@SuppressWarnings("all")
 public class SearchController {
 
     private final RestTemplate restTemplate;

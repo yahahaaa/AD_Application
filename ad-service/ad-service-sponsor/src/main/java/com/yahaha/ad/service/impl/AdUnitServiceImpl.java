@@ -42,9 +42,6 @@ public class AdUnitServiceImpl implements IAdUnitService {
     private AdPlanRepository planRepository;
 
     @Autowired
-    private AdUnitKeyword unitKeyword;
-
-    @Autowired
     private AdUnitKeywordRepository unitKeywordRepository;
 
     @Autowired

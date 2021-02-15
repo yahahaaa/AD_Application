@@ -10,6 +10,7 @@ import com.yahaha.ad.dao.unit_condition.AdUnitDistrictRepository;
 import com.yahaha.ad.dao.unit_condition.AdUnitItRepository;
 import com.yahaha.ad.dao.unit_condition.AdUnitKeywordRepository;
 import com.yahaha.ad.dao.unit_condition.CreativeUnitRepository;
+import com.yahaha.ad.dump.DConstant;
 import com.yahaha.ad.dump.table.*;
 import com.yahaha.ad.entity.AdPlan;
 import com.yahaha.ad.entity.AdUnit;
@@ -19,6 +20,7 @@ import com.yahaha.ad.entity.unit_condition.AdUnitIt;
 import com.yahaha.ad.entity.unit_condition.AdUnitKeyword;
 import com.yahaha.ad.entity.unit_condition.CreativeUnit;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -57,6 +59,17 @@ public class DumpDataService {
     private AdUnitItRepository itRepository;
     @Autowired
     private AdUnitKeywordRepository unitKeywordRepository;
+
+    @Test
+    public void dumpTableData(){
+        dumpAdPlanTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_PLAN));
+        dumpAdCreativeTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_CREATIVE));
+        dumpAdUnitTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_UNIT));
+        dumpAdUnitDistrictTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_UNIT_DISTRICT));
+        dumpAdUnitItTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_UNIT_IT));
+        dumpAdUnitKeywordTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_UNIT_KEYWORD));
+        dumpAdCreativeUnitTable(String.format("%s%s", DConstant.DATA_ROOT_DIR, DConstant.AD_CREATIVE_UNIT));
+    }
 
     private void dumpAdPlanTable(String fileName){
 
