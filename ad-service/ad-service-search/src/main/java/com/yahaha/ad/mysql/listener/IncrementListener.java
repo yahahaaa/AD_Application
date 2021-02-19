@@ -28,7 +28,7 @@ import java.util.Map;
 public class IncrementListener implements Ilistener {
 
     //未来可能会有不同类型的消息投放器
-    @Resource(name = "")
+    @Resource(name = "indexSender")
     private ISender sender;
 
     @Autowired
