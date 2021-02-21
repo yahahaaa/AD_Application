@@ -1,15 +1,19 @@
 package com.yahaha.ad.index.district;
 
+import com.yahaha.ad.search.vo.feature.DistrictFeature;
 import com.yahaha.ad.utils.CommonUtils;
 import com.yahaha.ad.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListSet;
+import java.util.stream.Collectors;
 
 /**
  * @Auther LeeMZ
@@ -72,11 +76,16 @@ public class UnitDistrictIndex implements IndexAware<String, Set<Long>> {
         log.info("UnitDistrictIndex, after delete : {}",unitDistrictMap);
     }
 
-    public static boolean match(Long unitId,Set<String> district){
+    public static boolean match(Long adUnitId, List<DistrictFeature.ProvinceAndCity> districts){
 
-        if (unitDistrictMap.containsKey(unitId) && CollectionUtils.isNotEmpty(unitDistrictMap.get(unitId))){
-            Set<String> districtSet = unitDistrictMap.get(unitId);
-            return CollectionUtils.isSubCollection(district,districtSet);
+        if (unitDistrictMap.containsKey(adUnitId) &&
+                CollectionUtils.isNotEmpty(unitDistrictMap.get(adUnitId))){
+
+            Set<String> unitDistricts = unitDistrictMap.get(adUnitId);
+            List<String> targetDistrict = districts.stream().map(d -> CommonUtils.stringContact(d.getProvince(), d.getCity()))
+                    .collect(Collectors.toList());
+
+            return CollectionUtils.isSubCollection(targetDistrict,unitDistricts);
         }
         return false;
     }

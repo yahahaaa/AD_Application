@@ -2,9 +2,10 @@ package com.yahaha.ad.index.creative;
 
 import com.yahaha.ad.index.IndexAware;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -19,6 +20,29 @@ public class CreativeIndex implements IndexAware<Long,CreativeObject> {
 
     static{
         objectMap = new ConcurrentHashMap<>();
+    }
+
+    /**
+     * 通过创意Id列表获取获取创意
+     * @param adIds
+     * @return
+     */
+    public List<CreativeObject> fetch(Collection<Long> adIds){
+        if (CollectionUtils.isEmpty(adIds)){
+            return Collections.emptyList();
+        }
+
+        List<CreativeObject> result = new ArrayList<>();
+        adIds.forEach(a -> {
+            CreativeObject object = get(a);
+            if (object == null){
+                log.error("CreativeObject not found: {}",a);
+            }
+
+            result.add(object);
+        });
+
+        return result;
     }
 
     @Override

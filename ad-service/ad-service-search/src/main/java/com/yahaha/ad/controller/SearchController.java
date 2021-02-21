@@ -3,6 +3,9 @@ package com.yahaha.ad.controller;
 import com.alibaba.fastjson.JSON;
 import com.yahaha.ad.annotation.IgnoreResponseAdvice;
 import com.yahaha.ad.client.SponsorClient;
+import com.yahaha.ad.search.ISearch;
+import com.yahaha.ad.search.vo.SearchRequest;
+import com.yahaha.ad.search.vo.SearchResponse;
 import com.yahaha.ad.vo.AdPlan;
 import com.yahaha.ad.vo.AdPlanGetRequest;
 import com.yahaha.ad.vo.CommonResponse;
@@ -23,6 +26,9 @@ import java.util.List;
 @Slf4j
 @SuppressWarnings("all")
 public class SearchController {
+
+    @Autowired
+    private ISearch search;
 
     private final RestTemplate restTemplate;
 
@@ -62,5 +68,13 @@ public class SearchController {
         log.info("【广告搜索】-> {}", JSON.toJSONString(request));
 
         return sponsorClient.getAdPlans(request);
+    }
+
+    @PostMapping("/fetchAds")
+    public SearchResponse fetchAds(@RequestBody SearchRequest request){
+
+        log.info("ad-search: fetchAds -> {}",JSON.toJSONString(request));
+
+        return search.fetchAds(request);
     }
 }
